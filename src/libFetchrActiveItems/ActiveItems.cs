@@ -29,6 +29,9 @@ namespace libFetchrActiveItems
 				case FetchrVersion.Fetchr511:
 					activeItemsPath = "libFetchrActiveItems.v511.command_storage_fetchr.dat";
 					break;
+				case FetchrVersion.Fetchr512:
+					activeItemsPath = "libFetchrActiveItems.v512.command_storage_fetchr.dat";
+					break;
 			}
 
 			if (activeItemsPath == null) throw new NotImplementedException("activeItemsPath is null");

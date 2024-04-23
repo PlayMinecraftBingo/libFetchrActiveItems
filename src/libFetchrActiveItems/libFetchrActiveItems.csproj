@@ -12,13 +12,14 @@
     <PackageProjectUrl>https://github.com/PlayMinecraftBingo/libFetchrActiveItems/</PackageProjectUrl>
     <PackageId>PlayMinecraftBingo.libFetchrActiveItems</PackageId>
     <Product>libFetchrActiveItems</Product>
-    <Version>5.1.1</Version>
+    <Version>5.1.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="v501\command_storage_bingo.dat" />
     <None Remove="v50\command_storage_bingo.dat" />
     <None Remove="v511\command_storage_fetchr.dat" />
+    <None Remove="v512\command_storage_fetchr.dat" />
     <None Remove="v51\command_storage_fetchr.dat" />
   </ItemGroup>
 
@@ -26,6 +27,7 @@
     <EmbeddedResource Include="v501\command_storage_bingo.dat" />
     <EmbeddedResource Include="v50\command_storage_bingo.dat" />
     <EmbeddedResource Include="v511\command_storage_fetchr.dat" />
+    <EmbeddedResource Include="v512\command_storage_fetchr.dat" />
     <EmbeddedResource Include="v51\command_storage_fetchr.dat" />
   </ItemGroup>
 
