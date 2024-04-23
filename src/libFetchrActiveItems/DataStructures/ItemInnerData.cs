@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace libFetchrActiveItems.DataStructures
+﻿namespace libFetchrActiveItems.DataStructures
 {
 	public class ItemInnerData
     {
@@ -10,7 +8,6 @@ namespace libFetchrActiveItems.DataStructures
 
         public override string ToString() => Id;
 
-        [DebuggerStepThrough()]
         internal ItemInnerData DeepCopy() => new()
         {
             Id = Id,

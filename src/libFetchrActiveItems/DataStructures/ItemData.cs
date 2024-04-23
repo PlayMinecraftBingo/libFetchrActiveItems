@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace libFetchrActiveItems.DataStructures
 {
@@ -19,7 +18,6 @@ namespace libFetchrActiveItems.DataStructures
 
         public override string ToString() => Id;
 
-        [DebuggerStepThrough()]
         public ItemData DeepCopy()
         {
             ItemData deepCopy = new()

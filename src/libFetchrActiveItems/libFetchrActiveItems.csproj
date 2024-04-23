@@ -12,7 +12,7 @@
     <PackageProjectUrl>https://github.com/PlayMinecraftBingo/libFetchrActiveItems/</PackageProjectUrl>
     <PackageId>PlayMinecraftBingo.libFetchrActiveItems</PackageId>
     <Product>libFetchrActiveItems</Product>
-    <Version>5.1.2</Version>
+    <Version>5.1.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

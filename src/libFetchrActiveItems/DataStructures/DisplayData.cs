@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace libFetchrActiveItems.DataStructures
 {
@@ -8,7 +7,6 @@ namespace libFetchrActiveItems.DataStructures
         public string Name;
         public List<string> Lore;
 
-        [DebuggerStepThrough()]
         internal DisplayData DeepCopy()
         {
             DisplayData deepCopy = new()
