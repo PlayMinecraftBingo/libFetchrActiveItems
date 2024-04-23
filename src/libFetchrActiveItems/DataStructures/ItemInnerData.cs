@@ -12,7 +12,7 @@
         {
             Id = Id,
             Count = Count,
-            Tag = Tag.DeepCopy()
+            Tag = Tag?.DeepCopy()
         };
     }
 }
