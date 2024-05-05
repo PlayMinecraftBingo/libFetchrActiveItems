@@ -16,6 +16,7 @@ namespace libFetchrActiveItems
 			JObject textComponent = JObject.Parse(item.TextComponent);
 			string itemId = textComponent.Value<string>("translate");
 
+			if (itemId == "fetchr.item.blue_trimmed_leather_boots") return "Blue Trimmed Leather Boots";
 			return McLang.GetValueOrDefault(itemId, item.Item.Id);
 		}
 
