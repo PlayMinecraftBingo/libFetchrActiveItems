@@ -1,14 +1,18 @@
 ﻿using libFetchrActiveItems.DataStructures;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace libFetchrActiveItems
 {
-	internal class ItemWeightSorter : IComparer<ItemData>
+	internal class ItemWeightSorter(string cat) : IComparer<ItemData>
 	{
 		public int Compare(ItemData x, ItemData y)
 		{
-			if (x.Weight == y.Weight) return Translate.ItemName(x).CompareTo(Translate.ItemName(y));
-			return y.Weight.CompareTo(x.Weight);
+			int xWeight = x.Categories.Single(c => c.Id == cat).Weight;
+			int yWeight = y.Categories.Single(c => c.Id == cat).Weight;
+
+			if (xWeight == yWeight) return Translate.ItemName(x).CompareTo(Translate.ItemName(y));
+			return yWeight.CompareTo(xWeight);
 		}
 	}
 }
