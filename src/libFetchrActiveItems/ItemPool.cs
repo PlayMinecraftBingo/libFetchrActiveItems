@@ -8,6 +8,7 @@ namespace libFetchrActiveItems
 	public class ItemPool
 	{
 		private static readonly ItemPoolSorter itemPoolSorter = new();
+		private static readonly ItemWeightSorter itemWeightSorter = new();
 
 		public static Dictionary<string, List<ItemData>> GetItemPool(FetchrVersion fetchrVersion)
 		{
@@ -29,7 +30,14 @@ namespace libFetchrActiveItems
 
 		public static Dictionary<string, List<ItemData>> GetSortedItemPool(FetchrVersion fetchrVersion)
 		{
-			return GetItemPool(fetchrVersion).Order(itemPoolSorter).ToDictionary();
+			Dictionary<string, List<ItemData>> itemPool = GetItemPool(fetchrVersion);
+
+            foreach (string cat in itemPool.Keys)
+			{
+				itemPool[cat] = [.. itemPool[cat].Order(itemWeightSorter)];
+            }
+
+			return itemPool.Order(itemPoolSorter).ToDictionary();
 		}
 	}
 }
