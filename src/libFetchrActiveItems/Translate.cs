@@ -11,13 +11,27 @@ namespace libFetchrActiveItems
 	{
 		private static readonly Dictionary<string, string> McLang = LoadMcLang();
 
+		public static string? ItemName(string itemId)
+		{
+			if (itemId == "fetchr.item.blue_trimmed_leather_boots") return "Blue Trimmed Leather Boots";
+
+			if (itemId.Contains(".")) return McLang.GetValueOrDefault(itemId, null);
+
+			string adjustedItemId = "item.minecraft." + itemId;
+			string? result = McLang.GetValueOrDefault(adjustedItemId, null);
+			if (result != null) return result;
+
+			adjustedItemId = "block.minecraft." + itemId;
+			result = McLang.GetValueOrDefault(adjustedItemId, null);
+			return result;
+		}
+
 		public static string ItemName(ItemData item)
 		{
 			JObject textComponent = JObject.Parse(item.TextComponent);
 			string itemId = textComponent.Value<string>("translate");
 
-			if (itemId == "fetchr.item.blue_trimmed_leather_boots") return "Blue Trimmed Leather Boots";
-			return McLang.GetValueOrDefault(itemId, item.Item.Id);
+			return ItemName(itemId) ?? item.Item.Id;
 		}
 
 		private static Dictionary<string, string> LoadMcLang()
