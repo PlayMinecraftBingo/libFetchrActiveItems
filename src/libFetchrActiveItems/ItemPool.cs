@@ -1,4 +1,4 @@
-﻿using libFetchrActiveItems.DataStructures;
+using libFetchrActiveItems.DataStructures;
 using libFetchrVersion;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,5 +38,38 @@ namespace libFetchrActiveItems
 
 			return itemPool.Order(itemPoolSorter).ToDictionary();
 		}
-	}
+
+		public static List<string> GetItemsFromSameCategories(FetchrVersion fetchrVersion, string referenceItemName)
+		{
+			List<string> results = [];
+
+            List<ItemData> flatItemPool = ActiveItems.Get(fetchrVersion);
+
+			ItemData referenceItem = flatItemPool.SingleOrDefault(x => x.Item.Id == "minecraft:" + referenceItemName);
+
+			if (referenceItem != null)
+			{
+				List<ItemData> itemsFound = [];
+
+				foreach (CategoryData referenceCategory in referenceItem.Categories)
+				{
+                    foreach (ItemData item in flatItemPool)
+					{
+						foreach(CategoryData itemCategory in item.Categories)
+						{
+							if (referenceCategory.Id == itemCategory.Id) itemsFound.Add(item);
+						}
+					}
+				}
+
+				foreach (ItemData itemFound in itemsFound)
+				{
+					string itemId = itemFound.Item.Id.Replace("minecraft:", "");
+					if (results.Contains(itemId) == false) results.Add(itemId);
+				}
+			}
+
+			return results;
+        }
+    }
 }
