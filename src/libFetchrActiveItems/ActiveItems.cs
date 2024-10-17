@@ -17,23 +17,23 @@ namespace libFetchrActiveItems
 
 			switch (version)
 			{
-				case FetchrVersion.Fetchr50:
-					activeItemsPath = "libFetchrActiveItems.v50.command_storage_bingo.dat";
+				case FetchrVersion.Fetchr_5_0:
+					activeItemsPath = "libFetchrActiveItems.v5_0.command_storage_bingo.dat";
 					break;
-				case FetchrVersion.Fetchr501:
-					activeItemsPath = "libFetchrActiveItems.v501.command_storage_bingo.dat";
+				case FetchrVersion.Fetchr_5_0_1:
+					activeItemsPath = "libFetchrActiveItems.v5_0_1.command_storage_bingo.dat";
 					break;
-				case FetchrVersion.Fetchr51:
-					activeItemsPath = "libFetchrActiveItems.v51.command_storage_fetchr.dat";
+				case FetchrVersion.Fetchr_5_1:
+					activeItemsPath = "libFetchrActiveItems.v5_1.command_storage_fetchr.dat";
 					break;
-				case FetchrVersion.Fetchr511:
-					activeItemsPath = "libFetchrActiveItems.v511.command_storage_fetchr.dat";
+				case FetchrVersion.Fetchr_5_1_1:
+					activeItemsPath = "libFetchrActiveItems.v5_1_1.command_storage_fetchr.dat";
 					break;
-				case FetchrVersion.Fetchr512:
-					activeItemsPath = "libFetchrActiveItems.v512.command_storage_fetchr.dat";
+				case FetchrVersion.Fetchr_5_1_2:
+					activeItemsPath = "libFetchrActiveItems.v5_1_2.command_storage_fetchr.dat";
 					break;
-				case FetchrVersion.Fetchr513:
-					activeItemsPath = "libFetchrActiveItems.v513.command_storage_fetchr.dat";
+				case FetchrVersion.Fetchr_5_1_3:
+					activeItemsPath = "libFetchrActiveItems.v5_1_3.command_storage_fetchr.dat";
 					break;
 			}
 
