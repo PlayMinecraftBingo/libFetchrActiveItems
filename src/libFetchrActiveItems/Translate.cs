@@ -1,21 +1,20 @@
-﻿using libFetchrActiveItems.DataStructures;
+using libFetchrActiveItems.DataStructures;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
 namespace libFetchrActiveItems
 {
-	public class Translate
+    public class Translate
 	{
 		private static readonly Dictionary<string, string> McLang = LoadMcLang();
 
-		public static string? ItemName(string itemId)
+        /*public static string? ItemName(string itemId)
 		{
 			if (itemId == "fetchr.item.blue_trimmed_leather_boots") return "Blue Trimmed Leather Boots";
 
-			if (itemId.Contains(".")) return McLang.GetValueOrDefault(itemId, null);
+			if (itemId.Contains('.')) return McLang.GetValueOrDefault(itemId, null);
 
 			string adjustedItemId = "item.minecraft." + itemId;
 			string? result = McLang.GetValueOrDefault(adjustedItemId, null);
@@ -28,13 +27,22 @@ namespace libFetchrActiveItems
 
 		public static string ItemName(ItemData item)
 		{
-			JObject textComponent = JObject.Parse(item.TextComponent);
-			string itemId = textComponent.Value<string>("translate");
+			return ItemName(item.TranslationKey) ?? item.Item.Id;
+		}*/
 
-			return ItemName(itemId) ?? item.Item.Id;
-		}
+        public static string? ItemNameUsingKey(string translationKey)
+        {
+            if (translationKey == "fetchr.item.blue_trimmed_leather_boots") return "Blue Trimmed Leather Boots";
 
-		private static Dictionary<string, string> LoadMcLang()
+            return McLang.TryGetValue(translationKey, out string itemName) ? itemName : null;
+        }
+
+        public static string? ItemNameUsingKey(ItemData item)
+        {
+			return ItemNameUsingKey(item.TranslationKey);
+        }
+
+        private static Dictionary<string, string> LoadMcLang()
 		{
 			using (StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream("libFetchrActiveItems.Minecraft.en_us.json")))
 			{

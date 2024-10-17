@@ -11,7 +11,7 @@ namespace libFetchrActiveItems
 			int xWeight = x.Categories.Single(c => c.Id == cat).Weight;
 			int yWeight = y.Categories.Single(c => c.Id == cat).Weight;
 
-			if (xWeight == yWeight) return Translate.ItemName(x).CompareTo(Translate.ItemName(y));
+			if (xWeight == yWeight) return Translate.ItemNameUsingKey(x).CompareTo(Translate.ItemNameUsingKey(y));
 			return yWeight.CompareTo(xWeight);
 		}
 	}

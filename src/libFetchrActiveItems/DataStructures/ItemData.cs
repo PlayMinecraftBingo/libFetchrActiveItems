@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace libFetchrActiveItems.DataStructures
 {
@@ -15,8 +17,23 @@ namespace libFetchrActiveItems.DataStructures
         public List<CategoryData> ActiveCategories;
         public string TextComponent;
         public int WeightNom;
+        public string? CommandArgument;
+        public string? Translation;
 
         public override string ToString() => Id;
+
+        public string? TranslationKey
+        {
+            get
+            {
+                return Translation ?? GetTranslationKeyFromTextComponent();
+            }
+        }
+
+        private string? GetTranslationKeyFromTextComponent()
+        {
+            return JObject.Parse(TextComponent).Value<string>("translate");
+        }
 
         public ItemData DeepCopy()
         {
@@ -32,7 +49,9 @@ namespace libFetchrActiveItems.DataStructures
                 Categories = [],
                 ActiveCategories = [],
                 TextComponent = TextComponent,
-                WeightNom = WeightNom
+                WeightNom = WeightNom,
+                CommandArgument = CommandArgument,
+                Translation = Translation
             };
 
             foreach (CategoryData category in Categories) deepCopy.Categories.Add(category.DeepCopy());

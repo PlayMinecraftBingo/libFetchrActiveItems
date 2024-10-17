@@ -9,9 +9,14 @@ namespace libFetchrActiveItems
 	{
 		private static readonly ItemPoolSorter itemPoolSorter = new();
 
-		public static Dictionary<string, List<ItemData>> GetItemPool(FetchrVersion fetchrVersion)
+		public static Dictionary<string, List<ItemData>> GetItemPool(FetchrVersion version)
 		{
-			List<ItemData> activeItems = ActiveItems.Get(fetchrVersion);
+			return GetItemPool(new FetchrVersionData(version));
+		}
+
+		public static Dictionary<string, List<ItemData>> GetItemPool(FetchrVersionData version)
+		{
+			List<ItemData> activeItems = ActiveItems.Get(version);
 
 			Dictionary<string, List<ItemData>> itemPool = [];
 
@@ -27,9 +32,14 @@ namespace libFetchrActiveItems
 			return itemPool;
 		}
 
-		public static Dictionary<string, List<ItemData>> GetSortedItemPool(FetchrVersion fetchrVersion)
+		public static Dictionary<string, List<ItemData>> GetSortedItemPool(FetchrVersion version)
 		{
-			Dictionary<string, List<ItemData>> itemPool = GetItemPool(fetchrVersion);
+			return GetSortedItemPool(new FetchrVersionData(version));
+		}
+
+        public static Dictionary<string, List<ItemData>> GetSortedItemPool(FetchrVersionData version)
+		{
+			Dictionary<string, List<ItemData>> itemPool = GetItemPool(version);
 
             foreach (string cat in itemPool.Keys)
 			{
@@ -39,11 +49,16 @@ namespace libFetchrActiveItems
 			return itemPool.Order(itemPoolSorter).ToDictionary();
 		}
 
-		public static List<string> GetItemsFromSameCategories(FetchrVersion fetchrVersion, string referenceItemName)
+		public static List<string> GetItemsFromSameCategories(FetchrVersion version, string referenceItemName)
+		{
+			return GetItemsFromSameCategories(new FetchrVersionData(version), referenceItemName);
+		}
+
+		public static List<string> GetItemsFromSameCategories(FetchrVersionData version, string referenceItemName)
 		{
 			List<string> results = [];
 
-            List<ItemData> flatItemPool = ActiveItems.Get(fetchrVersion);
+			List<ItemData> flatItemPool = ActiveItems.Get(version);
 
 			ItemData referenceItem = flatItemPool.SingleOrDefault(x => x.Item.Id == "minecraft:" + referenceItemName);
 
@@ -53,9 +68,9 @@ namespace libFetchrActiveItems
 
 				foreach (CategoryData referenceCategory in referenceItem.Categories)
 				{
-                    foreach (ItemData item in flatItemPool)
+					foreach (ItemData item in flatItemPool)
 					{
-						foreach(CategoryData itemCategory in item.Categories)
+						foreach (CategoryData itemCategory in item.Categories)
 						{
 							if (referenceCategory.Id == itemCategory.Id) itemsFound.Add(item);
 						}
@@ -70,6 +85,6 @@ namespace libFetchrActiveItems
 			}
 
 			return results;
-        }
+		}
     }
 }

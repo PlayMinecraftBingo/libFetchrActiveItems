@@ -1,6 +1,8 @@
-﻿using libFetchrActiveItems.DataStructures;
+﻿using libFetchrActiveItems.ContractResolvers;
+using libFetchrActiveItems.DataStructures;
 using libFetchrVersion;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using SharpNBT;
 using System;
 using System.Collections.Generic;
@@ -11,11 +13,6 @@ namespace libFetchrActiveItems
 {
 	public class ActiveItems
 	{
-		public static List<ItemData> Get(FetchrVersion version)
-		{
-			return Get(new FetchrVersionData(version));
-        }
-
 		public static List<ItemData> Get(FetchrVersionData version)
 		{
 			string? activeItemsPath = null;
@@ -57,12 +54,12 @@ namespace libFetchrActiveItems
 			if (activeItemsPath == null) throw new NotImplementedException("activeItemsPath is null");
 
 			Stream? activeItemsStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(activeItemsPath) ?? throw new NotImplementedException("activeItemsStream is null");
-			List<ItemData>? activeItems = FromStream(activeItemsStream) ?? throw new NotImplementedException("activeItems is null");
+			List<ItemData>? activeItems = FromStream(activeItemsStream, version) ?? throw new NotImplementedException("activeItems is null");
 
 			return activeItems;
 		}
 
-		private static List<ItemData>? FromStream(Stream stream)
+		private static List<ItemData>? FromStream(Stream stream, FetchrVersionData version)
 		{
 			CompoundTag rootTag = SharpNBTShim.ReadFromStream(stream, FormatOptions.Java);
 			CompoundTag dataTag = (CompoundTag)rootTag["data"];
@@ -73,7 +70,17 @@ namespace libFetchrActiveItems
 			ListTag activeItemsList = new(null, TagType.Compound, activeItemsTag);
 			string activeItemsJson = activeItemsList.ToJson()[1..^1];
 
-			return JsonConvert.DeserializeObject<List<ItemData>>(activeItemsJson);
+			return JsonConvert.DeserializeObject<List<ItemData>>(activeItemsJson, new JsonSerializerSettings() { ContractResolver = GetContractResolver(version) });
 		}
-	}
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1859:Use concrete types when possible for improved performance", Justification = "<Pending>")]
+        private static IContractResolver? GetContractResolver(FetchrVersionData version)
+        {
+            return version.Fetchr switch
+            {
+                FetchrVersion.Fetchr_5_1_4 => new ContractResolver_v5_1_4(),
+                _ => null
+            };
+        }
+    }
 }
