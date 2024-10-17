@@ -12,10 +12,15 @@ namespace libFetchrActiveItems
 	public class ActiveItems
 	{
 		public static List<ItemData> Get(FetchrVersion version)
-        {
+		{
+			return Get(new FetchrVersionData(version));
+        }
+
+		public static List<ItemData> Get(FetchrVersionData version)
+		{
 			string? activeItemsPath = null;
 
-			switch (version)
+			switch (version.Fetchr)
 			{
 				case FetchrVersion.Fetchr_5_0:
 					activeItemsPath = "libFetchrActiveItems.v5_0.command_storage_bingo.dat";
@@ -35,6 +40,18 @@ namespace libFetchrActiveItems
 				case FetchrVersion.Fetchr_5_1_3:
 					activeItemsPath = "libFetchrActiveItems.v5_1_3.command_storage_fetchr.dat";
 					break;
+				case FetchrVersion.Fetchr_5_1_4:
+					switch (version.Minecraft)
+					{
+						case MinecraftVersion.Minecraft_1_21:
+						case MinecraftVersion.Minecraft_1_21_1:
+							activeItemsPath = "libFetchrActiveItems.v5_1_4_pre_1_21_2.command_storage_fetchr.dat";
+							break;
+						case MinecraftVersion.Minecraft_1_21_2:
+                            activeItemsPath = "libFetchrActiveItems.v5_1_4_from_1_21_2.command_storage_fetchr.dat";
+                            break;
+					}
+					break;
 			}
 
 			if (activeItemsPath == null) throw new NotImplementedException("activeItemsPath is null");
@@ -51,7 +68,7 @@ namespace libFetchrActiveItems
 			CompoundTag dataTag = (CompoundTag)rootTag["data"];
 			CompoundTag contentsTag = (CompoundTag)dataTag["contents"];
 			CompoundTag itemsTag = (CompoundTag)contentsTag["items"];
-			ListTag activeItemsTag = (ListTag)itemsTag["activeItems"];
+            ListTag activeItemsTag = itemsTag.ContainsKey("active_items") ? (ListTag)itemsTag["active_items"] : (ListTag)itemsTag["activeItems"];
 
 			ListTag activeItemsList = new(null, TagType.Compound, activeItemsTag);
 			string activeItemsJson = activeItemsList.ToJson()[1..^1];

@@ -23,6 +23,8 @@
     <None Remove="v5_1_2\command_storage_fetchr.dat" />
     <None Remove="v5_1_3\command_storage_fetchr.dat" />
     <None Remove="v5_1\command_storage_fetchr.dat" />
+    <None Remove="v5_1_4_from_1_21_2\command_storage_fetchr.dat" />
+    <None Remove="v5_1_4_pre_1_21_2\command_storage_fetchr.dat" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +35,8 @@
     <EmbeddedResource Include="v5_1_2\command_storage_fetchr.dat" />
     <EmbeddedResource Include="v5_1_3\command_storage_fetchr.dat" />
     <EmbeddedResource Include="v5_1\command_storage_fetchr.dat" />
+    <EmbeddedResource Include="v5_1_4_from_1_21_2\command_storage_fetchr.dat" />
+    <EmbeddedResource Include="v5_1_4_pre_1_21_2\command_storage_fetchr.dat" />
   </ItemGroup>
 
   <ItemGroup>
