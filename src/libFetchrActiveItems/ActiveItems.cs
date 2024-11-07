@@ -1,8 +1,8 @@
 ﻿using libFetchrActiveItems.ContractResolvers;
 using libFetchrActiveItems.DataStructures;
 using libFetchrVersion;
+using libMinecraftVersion;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using SharpNBT;
 using System;
 using System.Collections.Generic;
@@ -20,32 +20,33 @@ namespace libFetchrActiveItems
 			switch (version.Fetchr)
 			{
 				case FetchrVersion.Fetchr_5_0:
-					activeItemsPath = "libFetchrActiveItems.v5_0.command_storage_bingo.dat";
+					activeItemsPath = "libFetchrActiveItems.DataFiles.Fetchr.v5_0.command_storage_bingo.dat";
 					break;
 				case FetchrVersion.Fetchr_5_0_1:
-					activeItemsPath = "libFetchrActiveItems.v5_0_1.command_storage_bingo.dat";
+					activeItemsPath = "libFetchrActiveItems.DataFiles.Fetchr.v5_0_1.command_storage_bingo.dat";
 					break;
 				case FetchrVersion.Fetchr_5_1:
-					activeItemsPath = "libFetchrActiveItems.v5_1.command_storage_fetchr.dat";
+					activeItemsPath = "libFetchrActiveItems.DataFiles.Fetchr.v5_1.command_storage_fetchr.dat";
 					break;
 				case FetchrVersion.Fetchr_5_1_1:
-					activeItemsPath = "libFetchrActiveItems.v5_1_1.command_storage_fetchr.dat";
+					activeItemsPath = "libFetchrActiveItems.DataFiles.Fetchr.v5_1_1.command_storage_fetchr.dat";
 					break;
 				case FetchrVersion.Fetchr_5_1_2:
-					activeItemsPath = "libFetchrActiveItems.v5_1_2.command_storage_fetchr.dat";
+					activeItemsPath = "libFetchrActiveItems.DataFiles.Fetchr.v5_1_2.command_storage_fetchr.dat";
 					break;
 				case FetchrVersion.Fetchr_5_1_3:
-					activeItemsPath = "libFetchrActiveItems.v5_1_3.command_storage_fetchr.dat";
+					activeItemsPath = "libFetchrActiveItems.DataFiles.Fetchr.v5_1_3.command_storage_fetchr.dat";
 					break;
 				case FetchrVersion.Fetchr_5_1_4:
 					switch (version.Minecraft)
 					{
-						case MinecraftVersion.Minecraft_1_21:
-						case MinecraftVersion.Minecraft_1_21_1:
-							activeItemsPath = "libFetchrActiveItems.v5_1_4_pre_1_21_2.command_storage_fetchr.dat";
+						case FetchrMinecraftVersion.Minecraft_1_21:
+						case FetchrMinecraftVersion.Minecraft_1_21_1:
+							activeItemsPath = "libFetchrActiveItems.DataFiles.Fetchr.v5_1_4_pre_1_21_2.command_storage_fetchr.dat";
 							break;
-						case MinecraftVersion.Minecraft_1_21_2:
-                            activeItemsPath = "libFetchrActiveItems.v5_1_4_from_1_21_2.command_storage_fetchr.dat";
+                        case FetchrMinecraftVersion.Minecraft_1_21_2:
+                        case FetchrMinecraftVersion.Minecraft_1_21_3:
+                            activeItemsPath = "libFetchrActiveItems.DataFiles.Fetchr.v5_1_4_from_1_21_2.command_storage_fetchr.dat";
                             break;
 					}
 					break;
@@ -73,8 +74,7 @@ namespace libFetchrActiveItems
 			return JsonConvert.DeserializeObject<List<ItemData>>(activeItemsJson, new JsonSerializerSettings() { ContractResolver = GetContractResolver(version) });
 		}
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1859:Use concrete types when possible for improved performance", Justification = "<Pending>")]
-        private static IContractResolver? GetContractResolver(FetchrVersionData version)
+        private static ContractResolver_v5_1_4? GetContractResolver(FetchrVersionData version)
         {
             return version.Fetchr switch
             {

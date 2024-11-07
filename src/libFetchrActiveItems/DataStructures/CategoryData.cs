@@ -2,16 +2,16 @@
 
 namespace libFetchrActiveItems.DataStructures
 {
-	public class CategoryData
+    public class CategoryData
     {
-        public string Name;
-        public string Id;
-        public List<string> Tags;
-        public int TotalItemWeight;
-        public int Weight;
+        public string Name { get; set; }
+        public string Id { get; set; }
+        public List<string> Tags { get; set; }
+        public int TotalItemWeight { get; set; }
+        public int? Weight { get; set; } = default(int);
 
         public override string ToString() => Id;
-        
+
         public CategoryData DeepCopy()
         {
             CategoryData deepCopy = new()

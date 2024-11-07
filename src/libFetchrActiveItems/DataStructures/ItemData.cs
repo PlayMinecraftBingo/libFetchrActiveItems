@@ -1,28 +1,35 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 
 namespace libFetchrActiveItems.DataStructures
 {
     public class ItemData
     {
-        public int WeightDenom;
-        public string Id;
-        public string DetectCommand;
-        public string ClearCommand;
-        public ItemInnerData Item;
-        public string Icon;
-        public int Weight;
-        public List<CategoryData> Categories;
-        public List<CategoryData> ActiveCategories;
-        public string TextComponent;
-        public int WeightNom;
-        public string? CommandArgument;
-        public string? Translation;
+        public int WeightDenom { get; set; }
+        public string Id { get; set; }
+        public string DetectCommand { get; set; }
+        public string ClearCommand { get; set; }
+        public ItemInnerData Item { get; set; }
+        public string Icon { get; set; }
+        public int Weight { get; set; }
+        public List<CategoryData> Categories { get; set; }
+        public List<CategoryData> ActiveCategories { get; set; }
+        public string TextComponent { get; set; }
+        public int WeightNom { get; set; }
+        public string? CommandArgument { get; set; }
+        public string? Translation { get; set; }
 
         public override string ToString() => Id;
 
-        public string? TranslationKey
+        public string TranslationName
+        {
+            get
+            {
+                return Translate.ItemNameFromKey(TranslationKey);
+            }
+        }
+
+        public string TranslationKey
         {
             get
             {

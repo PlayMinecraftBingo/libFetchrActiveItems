@@ -1,55 +1,47 @@
 using libFetchrActiveItems.DataStructures;
 using libFetchrVersion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace libFetchrActiveItems
 {
-	public class ItemPool
+    public class ItemPool
 	{
 		private static readonly ItemPoolSorter itemPoolSorter = new();
 
-		public static Dictionary<string, List<ItemData>> GetItemPool(FetchrVersion version)
-		{
-			return GetItemPool(new FetchrVersionData(version));
-		}
-
-		public static Dictionary<string, List<ItemData>> GetItemPool(FetchrVersionData version)
+		public static Dictionary<ItemPoolCategory, List<ItemData>> GetItemPool(FetchrVersionData version)
 		{
 			List<ItemData> activeItems = ActiveItems.Get(version);
 
-			Dictionary<string, List<ItemData>> itemPool = [];
+			Dictionary<ItemPoolCategory, List<ItemData>> itemPool = [];
 
 			foreach (ItemData item in activeItems)
 			{
-				foreach (CategoryData category in item.ActiveCategories)
+				foreach (ItemPoolCategory category in item.ActiveCategories)
 				{
-					if (itemPool.ContainsKey(category.Id) == false) itemPool.Add(category.Id, []);
-					itemPool[category.Id].Add(item);
+					if (itemPool.ContainsKey(category) == false) itemPool.Add(category, []);
+					itemPool[category].Add(item);
 				}
 			}
 
 			return itemPool;
 		}
 
-		public static Dictionary<string, List<ItemData>> GetSortedItemPool(FetchrVersion version)
+        public static Dictionary<ItemPoolCategory, List<ItemData>> GetSortedItemPool(FetchrVersionData version)
 		{
-			return GetSortedItemPool(new FetchrVersionData(version));
-		}
+			Dictionary<ItemPoolCategory, List<ItemData>> itemPool = GetItemPool(version);
 
-        public static Dictionary<string, List<ItemData>> GetSortedItemPool(FetchrVersionData version)
-		{
-			Dictionary<string, List<ItemData>> itemPool = GetItemPool(version);
-
-            foreach (string cat in itemPool.Keys)
+            foreach (ItemPoolCategory category in itemPool.Keys)
 			{
-				itemPool[cat] = [.. itemPool[cat].Order(new ItemWeightSorter(cat))];
+				itemPool[category] = [.. itemPool[category].Order(new ItemWeightSorter(category))];
             }
 
 			return itemPool.Order(itemPoolSorter).ToDictionary();
 		}
 
-		public static List<string> GetItemsFromSameCategories(FetchrVersion version, string referenceItemName)
+        [Obsolete("Please pass an instance of FetchrVersionData instead")]
+        public static List<string> GetItemsFromSameCategories(FetchrVersion version, string referenceItemName)
 		{
 			return GetItemsFromSameCategories(new FetchrVersionData(version), referenceItemName);
 		}
