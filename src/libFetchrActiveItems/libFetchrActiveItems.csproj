@@ -16,6 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DataFiles\Fetchr\v5_1_4_from_1_21_4\command_storage_fetchr.dat" />
     <None Remove="DataFiles\Minecraft\en_us.json" />
     <None Remove="DataFiles\Fetchr\v5_0_1\command_storage_bingo.dat" />
     <None Remove="DataFiles\Fetchr\v5_0\command_storage_bingo.dat" />
@@ -28,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="DataFiles\Fetchr\v5_1_4_from_1_21_4\command_storage_fetchr.dat" />
     <EmbeddedResource Include="DataFiles\Minecraft\en_us.json" />
     <EmbeddedResource Include="DataFiles\Fetchr\v5_0_1\command_storage_bingo.dat" />
     <EmbeddedResource Include="DataFiles\Fetchr\v5_0\command_storage_bingo.dat" />
@@ -41,7 +43,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="PlayMinecraftBingo.libFetchrVersion" Version="5.1.4.2" />
+    <PackageReference Include="PlayMinecraftBingo.libFetchrVersion" Version="5.1.4.3" />
     <PackageReference Include="SharpNBT" Version="1.3.1" />
   </ItemGroup>
 

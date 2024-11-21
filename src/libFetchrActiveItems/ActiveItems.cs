@@ -48,8 +48,11 @@ namespace libFetchrActiveItems
                         case FetchrMinecraftVersion.Minecraft_1_21_3:
                             activeItemsPath = "libFetchrActiveItems.DataFiles.Fetchr.v5_1_4_from_1_21_2.command_storage_fetchr.dat";
                             break;
-					}
-					break;
+                        case FetchrMinecraftVersion.Minecraft_1_21_4:
+                            activeItemsPath = "libFetchrActiveItems.DataFiles.Fetchr.v5_1_4_from_1_21_4.command_storage_fetchr.dat";
+                            break;
+                    }
+                    break;
 			}
 
 			if (activeItemsPath == null) throw new NotImplementedException("activeItemsPath is null");
